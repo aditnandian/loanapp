@@ -1,6 +1,6 @@
 package com.enigma;
 
-public class Main {
+public class LoanApplication {
     public static void main(String[] args) {
 
 
