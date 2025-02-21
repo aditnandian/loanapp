@@ -11,8 +11,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder(toBuilder = true)
 public class AuthRequest {
-    @NotBlank(message = "Email cannot be blank")
-    private String password;
     @NotBlank(message = "Password cannot be blank")
     private String email;
+    @NotBlank(message = "Email cannot be blank")
+    private String password;
+
 }

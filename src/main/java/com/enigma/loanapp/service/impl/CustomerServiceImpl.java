@@ -3,18 +3,23 @@ package com.enigma.loanapp.service.impl;
 import com.enigma.loanapp.entity.AppUser;
 import com.enigma.loanapp.entity.Customer;
 import com.enigma.loanapp.model.request.RegisterCustomerRequest;
-import com.enigma.loanapp.model.request.SearchCustomerRequest;
 import com.enigma.loanapp.model.request.UpdateCustomerRequest;
 import com.enigma.loanapp.model.response.CustomerResponse;
 import com.enigma.loanapp.repository.CustomerRepository;
 import com.enigma.loanapp.service.CustomerService;
-import com.enigma.loanapp.specification.CustomerSpecification;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+
+class DataNotFoundException extends RuntimeException {
+    public DataNotFoundException(String message) {
+        super(message);
+    }
+}
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +31,6 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer create(AppUser appUser) {
         Customer customer = new Customer();
         customer.setUser(appUser);
-
         return customerRepository.save(customer);
     }
 
@@ -46,19 +50,32 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerById(String id) {
-        return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("customer not found"));
+        return customerRepository.findByIdAndStatusTrue(id)
+                .orElseThrow(() -> new DataNotFoundException("Customer not found"));
     }
 
     @Override
-    public List<Customer> getAll(SearchCustomerRequest request) {
-        Specification<Customer> specification = CustomerSpecification.getSpecification(request);
-        return customerRepository.findAll(specification);
+    public CustomerResponse getById(String id) {
+        return mapToRes(this.getCustomerById(id));
     }
 
     @Override
-    public Customer update(Customer customer) {
-        findByIdOrThrowNotFound(customer.getId());
-        return customerRepository.saveAndFlush(customer);
+    public List<CustomerResponse> getAll() {
+        List<Customer> customers = customerRepository.findAllByStatusTrue();
+        return customers.stream().map(this::mapToRes).toList();
+    }
+
+    @Override
+    public CustomerResponse update(UpdateCustomerRequest request) {
+        Customer customer = this.getCustomerById(request.getId());
+
+        customer.setPhone(request.getPhone());
+        customer.setStatus(request.getStatus() == 1);
+        customer.setFirstName(request.getFirstName());
+        customer.setLastName(request.getLastName());
+        customer.setDateOfBirth(request.getDateOfBirth());
+
+        return mapToRes(customerRepository.save(customer));
     }
 
     @Override
@@ -67,7 +84,18 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.softDeleteById(id);
     }
 
-    public Customer findByIdOrThrowNotFound(String id) {
-        return customerRepository.findById(id).orElseThrow(() -> new RuntimeException("customer not found"));
+    // Mapper method moved inside the service class
+    private CustomerResponse mapToRes(Customer customer) {
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String date = formatter.format(customer.getDateOfBirth());
+
+        return CustomerResponse.builder()
+                .id(customer.getId())
+                .dateOfBirth(date)
+                .firstName(customer.getFirstName())
+                .lastName(customer.getLastName())
+                .phone(customer.getPhone())
+                .status(customer.getStatus() ? "ACTIVE" : "NON-ACTIVE")
+                .build();
     }
 }
