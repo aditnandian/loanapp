@@ -1,19 +1,25 @@
 package com.enigma.loanapp.model.response;
 
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class TransactionResponse {
     private String id;
+    private String loanTypeId;
+    private String instalmentTypeId;
     private String customerId;
-    private Date transDate;
-    private List<TransactionDetailResponse> transactionDetails;
+    private Double nominal;
+    private Date approvedAt;
+    private String approvedBy;
+    private String approvalStatus;
+    private Date createdAt;
+    private Date updatedAt;
 }

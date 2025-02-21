@@ -42,7 +42,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public RegisterResponse registerCustomer(RegisterCustomerRequest request) {
-        Role role = roleService.getOrSave(ERole.ROLE_CUSTOMER);
+        Role role = roleService.getOrSave(ERole.CUSTOMER);
         AppUser appUser = AppUser.builder()
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())
@@ -73,9 +73,9 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public RegisterResponse registerAdmin(AuthRequest request) {
-        Role roleCustomer = roleService.getOrSave(ERole.ROLE_CUSTOMER);
-        Role roleAdmin = roleService.getOrSave(ERole.ROLE_ADMIN);
-        Role roleStaff = roleService.getOrSave(ERole.ROLE_STAFF);
+        Role roleCustomer = roleService.getOrSave(ERole.CUSTOMER);
+        Role roleAdmin = roleService.getOrSave(ERole.ADMIN);
+        Role roleStaff = roleService.getOrSave(ERole.STAFF);
 
         AppUser appUser = AppUser.builder()
                 .email(request.getEmail())
@@ -101,8 +101,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional(rollbackOn = Exception.class)
     public RegisterResponse registerStaff(AuthRequest request) {
-        Role roleCustomer = roleService.getOrSave(ERole.ROLE_CUSTOMER);
-        Role roleStaff = roleService.getOrSave(ERole.ROLE_STAFF);
+        Role roleCustomer = roleService.getOrSave(ERole.CUSTOMER);
+        Role roleStaff = roleService.getOrSave(ERole.STAFF);
 
         AppUser appUser = AppUser.builder()
                 .email(request.getEmail())
