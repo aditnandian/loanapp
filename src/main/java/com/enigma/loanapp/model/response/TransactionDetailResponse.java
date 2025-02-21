@@ -4,12 +4,14 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class TransactionDetailResponse {
     private String id;
-    private String productId;
-    private Long productPrice;
-    private Integer quantity;
+    private Long transactionDate;
+    private Double nominal;
+    private String loanStatus;
+    private Long createdAt;
+    private Long updatedAt;
 }

@@ -4,6 +4,7 @@ import com.enigma.loanapp.entity.Customer;
 import com.enigma.loanapp.entity.InstalmentType;
 import com.enigma.loanapp.entity.LoanTransaction;
 import com.enigma.loanapp.entity.LoanType;
+import com.enigma.loanapp.model.request.ApproveTransactionRequest;
 import com.enigma.loanapp.model.request.TransactionRequest;
 import com.enigma.loanapp.model.response.TransactionResponse;
 import com.enigma.loanapp.repository.CustomerRepository;
@@ -26,7 +27,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final InstalmentTypeRepository instalmentTypeRepository;
     private final CustomerRepository customerRepository;
 
-    @Override
+
     @Transactional(rollbackOn = Exception.class)
     public TransactionResponse createTransaction(TransactionRequest request) {
         LoanType loanType = loanTypeRepository.findById(request.getLoanTypeId())
@@ -51,6 +52,39 @@ public class TransactionServiceImpl implements TransactionService {
         return mapToResponse(savedTransaction);
     }
 
+    @Override
+    public TransactionResponse getTransactionById(String id) {
+        LoanTransaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transaction Not Found"));
+        return mapToResponse(transaction);
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public TransactionResponse approveTransaction(String adminId, ApproveTransactionRequest request) {
+        LoanTransaction transaction = transactionRepository.findById(request.getLoanTransactionId())
+                .orElseThrow(() -> new RuntimeException("Transaction Not Found"));
+
+        transaction.setApprovedBy(adminId);
+        transaction.setApprovedAt(new Date());
+        transaction.setApprovalStatus("APPROVED");
+        transaction.setUpdatedAt(new Date());
+
+        LoanTransaction updatedTransaction = transactionRepository.save(transaction);
+        return mapToResponse(updatedTransaction);
+    }
+
+    @Override
+    @Transactional(rollbackOn = Exception.class)
+    public void payInstallment(String trxId) {
+        LoanTransaction transaction = transactionRepository.findById(trxId)
+                .orElseThrow(() -> new RuntimeException("Transaction Not Found"));
+
+        transaction.setApprovalStatus("PAID");
+        transaction.setUpdatedAt(new Date());
+        transactionRepository.save(transaction);
+    }
+
     private TransactionResponse mapToResponse(LoanTransaction transaction) {
         return TransactionResponse.builder()
                 .id(transaction.getId())
@@ -58,11 +92,11 @@ public class TransactionServiceImpl implements TransactionService {
                 .instalmentTypeId(transaction.getInstalmentType().getId())
                 .customerId(transaction.getCustomer().getId())
                 .nominal(transaction.getNominal())
-                .approvedAt(transaction.getApprovedAt())
+                .approvedAt(transaction.getApprovedAt().getTime())
                 .approvedBy(transaction.getApprovedBy())
                 .approvalStatus(transaction.getApprovalStatus())
-                .createdAt(transaction.getCreatedAt())
-                .updatedAt(transaction.getUpdatedAt())
+                .createdAt(transaction.getCreatedAt().getTime())
+                .updatedAt(transaction.getUpdatedAt().getTime())
                 .build();
     }
 }

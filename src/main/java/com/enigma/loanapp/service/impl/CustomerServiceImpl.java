@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerById(String id) {
-        return customerRepository.findByIdAndStatusTrue(id)
+        return customerRepository.findByIdAndStatusTrue("4a5db1e7-7189-4a95-b267-f5c9fb82ae6c")
                 .orElseThrow(() -> new DataNotFoundException("Customer not found"));
     }
 
