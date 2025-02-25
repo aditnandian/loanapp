@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "4976bb1a-19f4-4ea8-b5ac-261ea65cfa64",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "40313446"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/auth/signup",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"adit2@gmail.com\",\r\n  \"password\": \"adit2\",\r\n  \"firstName\": \"adit2\",\r\n  \"lastName\": \"Saputra2\",\r\n  \"dateOfBirth\": \"1996-01-01\",\r\n  \"phone\": \"0812345678912\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/auth/signup"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/auth/signin",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"adit2@gmail.com\",\r\n  \"password\": \"adit2\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/auth/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/customers?id=73638c1e-3a8f-4a1c-a190-5aa1c73bc9aa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/customers?id=73638c1e-3a8f-4a1c-a190-5aa1c73bc9aa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "73638c1e-3a8f-4a1c-a190-5aa1c73bc9aa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/customers",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/customers"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/customers",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"111811c6-da76-4f49-a484-07664e6ce331\",\r\n  \"firstName\": \"rifqi\",\r\n  \"lastName\": \"ramadhan\",\r\n  \"dateOfBirth\": \"0000-01-01\",\r\n  \"phone\": \"087123\",\r\n  \"status\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/customers"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/customers/111811c6-da76-4f49-a484-07664e6ce331",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/api/customers/111811c6-da76-4f49-a484-07664e6ce331"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/loan-types",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"type\": \"Pinjaman Kredit Motor\",\r\n  \"maxLoan\": 10000000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/loan-types"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/loan-types",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/loan-types"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/loan-types/f15679df-3264-415e-9c47-612c09bcbeaf",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"type\": \"Pinjaman Kredit Mobil\",\r\n        \"maxLoan\": 100000000\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/loan-types/f15679df-3264-415e-9c47-612c09bcbeaf"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/loan-types/f15679df-3264-415e-9c47-612c09bcbeaf",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/api/loan-types/f15679df-3264-415e-9c47-612c09bcbeaf"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/instalment-types",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"instalmentType\": \"ONE_MONTH\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/instalment-types"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/instalment-types",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/instalment-types"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/instalment-types/548a4702-ca4d-490f-ab04-e8d7ec3b8c74",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZGl0QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX0NVU1RPTUVSIiwiZXhwIjoxNzQwMjE0ODM2fQ.FR3Bgl6Jk7pyXetb92Vqn7fyoAfoo8JuxB3tEn5u08k2LCPcdBn8dJnoVufm0oYx0TJC_kYQ5ShkldcN6FWE-A"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/api/instalment-types/548a4702-ca4d-490f-ab04-e8d7ec3b8c74"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/instalment-types",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": \"548a4702-ca4d-490f-ab04-e8d7ec3b8c74\",\r\n        \"instalmentType\": \"THREE_MONTHS\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/instalment-types"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/instalment-types/548a4702-ca4d-490f-ab04-e8d7ec3b8c74",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8080/api/instalment-types/548a4702-ca4d-490f-ab04-e8d7ec3b8c74"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/transactions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZGl0MkBnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJleHAiOjE3NDAyMTU1OTB9.PE3qUsiu5IHZ4dDhW0g59JrWi5yzYXbWMPAXdLQwQnp2aWWbSeIsgfesLBz2cI6i41jHgfrcAqPhWCQ7cs70cQ"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"loanTypeId\": \"d849316f-0c3c-4564-b892-0199d2bc2170\",\r\n  \"instalmentTypeId\": \"3e7023c8-77a8-4311-a195-3958a14a20a1\",\r\n  \"customerId\": \"2a8cdda7-3353-40d4-9e6a-70480f2bd90d\",\r\n  \"nominal\": 10000000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/transactions"
+			},
+			"response": []
+		}
+	]
+}
